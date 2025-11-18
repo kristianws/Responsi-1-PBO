@@ -18,20 +18,53 @@ public class Mobil {
         this.available = true;
     }
 
-    public String getId() {return id;}
-    public String getBrand() {return brand;}
-    public String getType() {return type;}
-    public Boolean getAvailable() {return available;}
-    public double getPrice() {return pricePerDay;}
+    public String getId() {
+        return id;
+    }
 
-    public void setId(String id) {this.id = id;}
-    public void setBrand(String brand) {this.brand = brand;}
-    public void setType(String type) {this.type = type;}
-    public void setType(Boolean available) {this.available = available;}
-    public void setPrice(double pricePerDay) {this.pricePerDay = pricePerDay;}
+    public String getBrand() {
+        return brand;
+    }
 
-    public void rentOut() { this.available = false; }
-    public void returnMobil() { this.available = true; }
+    public String getType() {
+        return type;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public double getPrice() {
+        return pricePerDay;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setType(Boolean available) {
+        this.available = available;
+    }
+
+    public void setPrice(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+
+    public void rentOut() {
+        this.available = false;
+    }
+
+    public void returnMobil() {
+        this.available = true;
+    }
 
     @Override
     public String toString() {
@@ -44,11 +77,11 @@ public class Mobil {
 
     public static Mobil fromFileString(String line) throws Exception {
         String[] parts = line.split("\\|");
-        if (parts.length != 5) throw new Exception("Format mobil salah: " + line);
+        if (parts.length != 5)
+            throw new Exception("Format mobil salah: " + line);
         Mobil c = new Mobil(parts[0], parts[1], parts[2], Double.parseDouble(parts[3]));
         c.available = Boolean.parseBoolean(parts[4]);
         return c;
     }
-
 
 }
