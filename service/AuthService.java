@@ -3,7 +3,6 @@ package service;
 import model.UserAccount;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class AuthService {
