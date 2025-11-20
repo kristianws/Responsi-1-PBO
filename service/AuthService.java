@@ -1,7 +1,6 @@
 package service;
 
 import model.UserAccount;
-import model.Pelanggan;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;

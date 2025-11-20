@@ -105,7 +105,6 @@ public class Main {
         System.out.print("Password : ");
         String password = input.nextLine().trim();
         System.out.println("No HP : ");
-        String nohp = input.nextLine().trim();
 
         try {
             authService.register(username, password);
