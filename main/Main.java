@@ -19,6 +19,7 @@ public class Main {
     private static RentalService rentalService;
     private static AdminService adminService;
 
+    // Constructor
     public static void main(String[] args) {
         storage.initializeIfNeeded();
 
@@ -27,7 +28,7 @@ public class Main {
         listUsers = storage.loadUsers();
         listTransaksi = storage.loadTransactionRecords();
 
-        authService = new AuthService(storage, listUsers);
+        authService = new AuthService(storage, listUsers, listPelanggan);
         rentalService = new RentalService(storage, listMobil, listPelanggan,
                 listTransaksi);
         adminService = new AdminService(storage, listMobil, listPelanggan,
@@ -42,8 +43,8 @@ public class Main {
             System.out.println("╔══════════════════════════════════════╗");
             System.out.println("║        RENTAL MOBIL SUKA MAJU        ║");
             System.out.println("╠══════════════════════════════════════╣");
-            System.out.println("║ 1. Login (Admin / Staff)             ║");
-            System.out.println("║ 2. Registrasi (Staff)                ║");
+            System.out.println("║ 1. Login (Admin / Pelanggan)         ║");
+            System.out.println("║ 2. Registrasi (Pelanggan)            ║");
             System.out.println("║ 3. Keluar                            ║");
             System.out.println("╚══════════════════════════════════════╝");
 
@@ -104,10 +105,11 @@ public class Main {
         String username = input.nextLine().trim();
         System.out.print("Password : ");
         String password = input.nextLine().trim();
-        System.out.println("No HP : ");
+        System.out.print("No HP : ");
+        String nohp = input.nextLine().trim();
 
         try {
-            authService.register(username, password);
+            authService.register(username, password, nohp);
             listUsers = storage.loadUsers();
             listPelanggan = storage.loadCustomer();
             System.out.println("Registrasi Berhasil, Bisa Login.");
