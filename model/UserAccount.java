@@ -35,7 +35,6 @@ public class UserAccount {
         return username + " (" + role + ")";
     }
 
-    // file format: username|password|role
     public String toFileString() {
         return username + "|" + password + "|" + role;
     }

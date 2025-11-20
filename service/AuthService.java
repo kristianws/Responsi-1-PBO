@@ -1,6 +1,7 @@
 package service;
 
 import model.UserAccount;
+import model.Pelanggan;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -42,8 +43,10 @@ public class AuthService {
                 throw new Exception("Username tidak ada");
             }
         }
+
         UserAccount newUser = new UserAccount(username, password, "USER");
         users.add(newUser);
+        
         storage.saveUsers(users);
         return true;
     }

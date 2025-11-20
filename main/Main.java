@@ -42,8 +42,8 @@ public class Main {
             System.out.println("╔══════════════════════════════════════╗");
             System.out.println("║        RENTAL MOBIL SUKA MAJU        ║");
             System.out.println("╠══════════════════════════════════════╣");
-            System.out.println("║ 1. Login (Admin / Pelanggan)         ║");
-            System.out.println("║ 2. Registrasi (Pelanggan)            ║");
+            System.out.println("║ 1. Login (Admin / Staff)             ║");
+            System.out.println("║ 2. Registrasi (Staff)                ║");
             System.out.println("║ 3. Keluar                            ║");
             System.out.println("╚══════════════════════════════════════╝");
 
@@ -70,7 +70,7 @@ public class Main {
     private static void doLogin() {
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║        RENTAL MOBIL SUKA MAJU        ║");
-        System.out.println("╠══════════════════════════════════════╣");
+        System.out.println("╚══════════════════════════════════════╝");
         System.out.print("Username : ");
         String username = input.nextLine().trim();
         System.out.print("Password : ");
@@ -98,21 +98,24 @@ public class Main {
         System.out.println("║1. username : huruf di depan          ║");
         System.out.println("║   alfanum, min 5 karakter            ║");
         System.out.println("║2. password min 4 karakter            ║");
+        System.out.println("╚══════════════════════════════════════╝");
 
         System.out.print("Username : ");
         String username = input.nextLine().trim();
-        System.out.print("password : ");
+        System.out.print("Password : ");
         String password = input.nextLine().trim();
+        System.out.println("No HP : ");
+        String nohp = input.nextLine().trim();
 
         try {
             authService.register(username, password);
             listUsers = storage.loadUsers();
+            listPelanggan = storage.loadCustomer();
             System.out.println("Registrasi Berhasil, Bisa Login.");
         } catch (Exception e) {
             System.out.println("Gagal Registrasi : " + e.getMessage());
         }
 
-        System.out.println("╚══════════════════════════════════════╝");
     }
 
     // Menu Admin
@@ -184,39 +187,37 @@ public class Main {
     private static void listAllMobil() {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║          DAFTAR MOBIL        ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
         for (Mobil mobil : listMobil) {
             System.out.println(mobil);
         }
 
-        System.out.println("╚══════════════════════════════╝");
     }
 
     private static void tambahMobil() {
 
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║          TAMBAH MOBIL        ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
         System.out.print("ID Mobil : ");
         String id = input.nextLine().trim();
-        System.out.println("Merk : ");
+        System.out.print("Merk : ");
         String merk = input.nextLine().trim();
-        System.out.println("Tipe : ");
+        System.out.print("Tipe : ");
         String tipe = input.nextLine().trim();
-        System.out.println("Harga Per Hari : ");
+        System.out.print("Harga Per Hari : ");
         double price = Double.parseDouble(input.nextLine().trim());
 
         Mobil baru = new Mobil(id, merk, tipe, price);
         adminService.createMobil(baru);
         System.out.println("Mobil Baru ditambahkan.");
 
-        System.out.println("╚══════════════════════════════╝");
     }
 
     private static void updateMobil() throws Exception {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║          UPDATE MOBIL        ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
 
         System.out.print("ID Mobil yang akan diupdate : ");
         String id = input.nextLine().trim();
@@ -237,7 +238,7 @@ public class Main {
             type = targetUpdate.getType();
         }
 
-        System.out.println("Price per Day (" + targetUpdate.getPrice() + ") : ");
+        System.out.print("Price per Day (" + targetUpdate.getPrice() + ") : ");
         double price = Double.parseDouble(input.nextLine().trim());
         adminService.updateCar(id, merk, type, price);
         System.out.println("Update Sukses.");
@@ -246,7 +247,7 @@ public class Main {
     public static void hapusMobil() throws Exception {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║          HAPUS MOBIL         ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
 
         System.out.print("ID Mobil yang akan dihapus : ");
         String id = input.nextLine().trim();
@@ -294,37 +295,34 @@ public class Main {
     private static void listAllPelanggan() {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║       DAFTAR PELANGGAN       ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
         for (Pelanggan pelanggan : listPelanggan) {
-            System.out.println(pelanggan);
+            System.out.println(" " + pelanggan);
         }
 
-        System.out.println("╚══════════════════════════════╝");
     }
 
     private static void tambahPelanggan() {
 
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║       TAMBAH PELANGGAN       ║");
-        System.out.println("╠══════════════════════════════╣");
-        System.out.print("ID Pelanggan  : ");
+        System.out.println("╚══════════════════════════════╝");
+        System.out.print(" ID Pelanggan  : ");
         String id = input.nextLine().trim();
-        System.out.println("Nama : ");
+        System.out.print(" Nama : ");
         String nama = input.nextLine().trim();
-        System.out.println("Phone : ");
+        System.out.print(" Phone : ");
         String phone = input.nextLine().trim();
 
         Pelanggan baru = new Pelanggan(id, nama, phone);
         adminService.createPelanggan(baru);
-        System.out.println("Pelanggan Baru ditambahkan.");
-
-        System.out.println("╚══════════════════════════════╝");
+        System.out.println(" Pelanggan Baru ditambahkan.");
     }
 
     private static void updatePelanggan() throws Exception {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║       UPDATE PELANGGAN       ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
 
         System.out.print("ID Pelanggan  : ");
         String id = input.nextLine().trim();
@@ -352,7 +350,7 @@ public class Main {
     private static void hapusPelanggan() throws Exception {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║        HAPUS PELANGGAN       ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
 
         System.out.print("ID Pelanggan yang akan dihapus : ");
         String id = input.nextLine().trim();
@@ -393,19 +391,18 @@ public class Main {
     private static void listAkun() {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║         DAFTAR AKUN          ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
         for (UserAccount akun : listUsers) {
-            System.out.println(akun);
+            System.out.println(" " + akun);
         }
 
-        System.out.println("╚══════════════════════════════╝");
     }
 
     private static void buatUserByAdmin() throws Exception {
 
         System.out.println("\n╔══════════════════════════════╗");
-        System.out.println("║       TAMBAH PELANGGAN       ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("║          TAMBAH AKUN         ║");
+        System.out.println("╚══════════════════════════════╝");
 
         System.out.print("Username baru : ");
         String username = input.nextLine().trim();
@@ -460,17 +457,16 @@ public class Main {
     private static void lihatListTransaksi() {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║       DAFTAR TRANSAKSI       ║");
-        System.out.println("╠══════════════════════════════╣");
-        for (TransactionRecord transaksi : listTransaksi) {
-            System.out.println(transaksi);
-        }
         System.out.println("╚══════════════════════════════╝");
+        for (TransactionRecord transaksi : listTransaksi) {
+            System.out.println(" " + transaksi);
+        }
     }
 
     private static void hapusTransaksi() throws Exception {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║        HAPUS TRANSAKSI       ║");
-        System.out.println("╠══════════════════════════════╣");
+        System.out.println("╚══════════════════════════════╝");
         System.out.print("ID Transaksi : ");
         String id = input.nextLine().trim();
         adminService.deleteTransactions(id);
@@ -486,9 +482,10 @@ public class Main {
             System.out.println("║ 1. Lihat Mobil Tersedia                ║");
             System.out.println("║ 2. Sewa Mobil                          ║");
             System.out.println("║ 3. Kembalikan Mobil                    ║");
-            System.out.println("║ 4. Lihat Transaksi Saya                ║");
+            System.out.println("║ 4. Lihat Transaksi                     ║");
             System.out.println("║ 5. Logout                              ║");
             System.out.println("╚════════════════════════════════════════╝");
+            System.out.print("->");
             String option = input.nextLine().trim();
             try {
                 switch (option) {
@@ -512,10 +509,10 @@ public class Main {
 
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║        RENTAL MOBIL SUKA MAJU        ║");
-        System.out.println("╠══════════════════════════════════════╣");
+        System.out.println("╚══════════════════════════════════════╝");
         System.out.println(" Daftar Mobil");
         for (Mobil mobil : rentalService.availableMobil()) {
-            System.out.println(mobil);
+            System.out.println(" " + mobil);
         }
     }
 

@@ -68,7 +68,14 @@ public class Mobil {
 
     @Override
     public String toString() {
-        return id + " - " + brand + " (" + type + ") | Available: " + available;
+        String ketersediaan;
+        if (available) {
+            ketersediaan = "Ada";
+        } else {
+            ketersediaan = "Sedang Disewa";
+        }
+        
+        return id + " - " + brand + " (" + type + ") " + ketersediaan + "( " + pricePerDay + " )";
     }
 
     public String toFileString() {

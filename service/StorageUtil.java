@@ -146,7 +146,7 @@ public class StorageUtil {
     }
 
     public void saveUsers(ArrayList<UserAccount> users) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(CUSTOMERS_FILE))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(USERS_FILE))) {
             for (UserAccount user : users) {
 
                 bw.write(user.toFileString());
