@@ -426,11 +426,37 @@ public class Main {
     // Laporan
     private static void lihatLaporan() {
         while (true) {
+            System.out.println("\n╔══════════════════════════════════╗");
+            System.out.println("║       TRANSACTIONS & REPORTS     ║");
+            System.out.println("╠══════════════════════════════════╣");
+            System.out.println("║ 1. Daftar Transaksi              ║");
+            System.out.println("║ 2. Lihat Total Revenue           ║");
+            System.out.println("║ 3. Hapus Transaksi               ║");
+            System.out.println("║ 4. Kembali                       ║");
+            System.out.println("╚══════════════════════════════════╝");
 
+            String option = input.nextLine().trim();
+            try {
+                switch (option) {
+                    case "1" -> lihatListTransaksi();
+                    case "2" -> {
+                        System.out.print("Total Revenue : " + adminService.totalRevenue());
+                    }
+                    case "3" -> hapusTransaksi();
+                    case "4" -> {
+                        return;
+                    }
+                    default -> {
+                        System.out.println("Invalid Input");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error : " + e.getMessage());
+            }
         }
     }
 
-    private static void listTransaksi() {
+    private static void lihatListTransaksi() {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║       DAFTAR TRANSAKSI       ║");
         System.out.println("╠══════════════════════════════╣");
@@ -441,6 +467,9 @@ public class Main {
     }
 
     private static void hapusTransaksi() throws Exception {
+        System.out.println("\n╔══════════════════════════════╗");
+        System.out.println("║        HAPUS TRANSAKSI       ║");
+        System.out.println("╠══════════════════════════════╣");
         System.out.println("ID Transaksi : ");
         String id = input.nextLine().trim();
         adminService.deleteTransactions(id);
