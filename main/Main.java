@@ -478,7 +478,7 @@ public class Main {
     private static void userMenu(UserAccount user) {
         while (true) {
             System.out.println("\n╔════════════════════════════════════════╗");
-            System.out.println("║              USER MENU (" + user.getUsername() + ")      ║");
+            System.out.println("║                USER MENU               ║");
             System.out.println("╠════════════════════════════════════════╣");
             System.out.println("║ 1. Lihat Mobil Tersedia                ║");
             System.out.println("║ 2. Sewa Mobil                          ║");
