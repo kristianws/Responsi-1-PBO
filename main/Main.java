@@ -5,7 +5,6 @@ import service.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main {
     private static StorageUtil storage = new StorageUtil();
@@ -427,13 +426,15 @@ public class Main {
     private static void lihatLaporan() {
         while (true) {
             System.out.println("\n╔══════════════════════════════════╗");
-            System.out.println("║       TRANSACTIONS & REPORTS     ║");
+            System.out.println("║       TRANSAKSI DAN LAPORAN      ║");
             System.out.println("╠══════════════════════════════════╣");
             System.out.println("║ 1. Daftar Transaksi              ║");
             System.out.println("║ 2. Lihat Total Revenue           ║");
             System.out.println("║ 3. Hapus Transaksi               ║");
             System.out.println("║ 4. Kembali                       ║");
             System.out.println("╚══════════════════════════════════╝");
+
+            System.out.print("-> ");
 
             String option = input.nextLine().trim();
             try {
@@ -470,7 +471,7 @@ public class Main {
         System.out.println("\n╔══════════════════════════════╗");
         System.out.println("║        HAPUS TRANSAKSI       ║");
         System.out.println("╠══════════════════════════════╣");
-        System.out.println("ID Transaksi : ");
+        System.out.print("ID Transaksi : ");
         String id = input.nextLine().trim();
         adminService.deleteTransactions(id);
         System.out.println("Transaksi dihapus");
@@ -478,7 +479,91 @@ public class Main {
 
     // Menu User/Pelanggan
     private static void userMenu(UserAccount user) {
-        System.out.println("User");
+        while (true) {
+            System.out.println("\n╔════════════════════════════════════════╗");
+            System.out.println("║              USER MENU (" + user.getUsername() + ")      ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║ 1. Lihat Mobil Tersedia                ║");
+            System.out.println("║ 2. Sewa Mobil                          ║");
+            System.out.println("║ 3. Kembalikan Mobil                    ║");
+            System.out.println("║ 4. Lihat Transaksi Saya                ║");
+            System.out.println("║ 5. Logout                              ║");
+            System.out.println("╚════════════════════════════════════════╝");
+            String option = input.nextLine().trim();
+            try {
+                switch (option) {
+                    case "1" -> daftarMobilTersedia();
+                    case "2" -> sewaMobil(user);
+                    case "3" -> mengembalikanMobil();
+                    case "4" -> daftarTransaksiSaya(user);
+                    case "5" -> {
+                        System.out.println("LogOut");
+                        return;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error : " + e.getMessage());
+            }
+
+        }
+    }
+
+    private static void daftarMobilTersedia() {
+
+        System.out.println("╔══════════════════════════════════════╗");
+        System.out.println("║        RENTAL MOBIL SUKA MAJU        ║");
+        System.out.println("╠══════════════════════════════════════╣");
+        System.out.println(" Daftar Mobil");
+        for (Mobil mobil : rentalService.availableMobil()) {
+            System.out.println(mobil);
+        }
+    }
+
+    private static void sewaMobil(UserAccount user) throws Exception {
+
+        daftarMobilTersedia();
+
+        System.out.print("ID Mobil yang ingin disewa : ");
+        String idMobil = input.nextLine().trim();
+        Mobil mobil = rentalService.findMobil(idMobil);
+        if (mobil == null) {
+            System.out.println("Mobil Tidak Ada!");
+            return;
+        }
+
+        System.out.print("ID Pelanggan (harus terdaftar) : ");
+        String idPelanggan = input.nextLine().trim();
+        Pelanggan pelanggan = rentalService.findPelanggan(idPelanggan);
+        if (pelanggan == null) {
+            System.out.println("Pelanggan tidak ada. Coba ke Admin atau regis :) ");
+            return;
+        }
+
+        System.out.print("Lama sewa (hari) : ");
+        int hari = Integer.parseInt(input.nextLine().trim());
+        double total = mobil.getPrice() * hari;
+
+        System.out.println("Total Harga : Rp" + total);
+        System.out.println("Masukkan Jumlah Pembayaran (Cash) : ");
+        double paidMoney = Double.parseDouble(input.nextLine().trim());
+        double kembalian = rentalService.rentCar(pelanggan.getName(), idMobil, idPelanggan, hari, paidMoney);
+        System.out.println("Sewa berhasil. Kembalian : Rp" + kembalian);
+    }
+
+    private static void mengembalikanMobil() throws Exception {
+        System.out.print("Masukan ID mobil yang akan dikembalikan : ");
+        String id = input.nextLine().trim();
+        rentalService.returnCar(id);
+        System.out.println("Mobil Dikembalikan. Makasih!");
+    }
+
+    private static void daftarTransaksiSaya(UserAccount user) {
+        System.out.println("\nTransaksi " + user.getUsername() + ":");
+        for (TransactionRecord transactionRecord : listTransaksi) {
+            if (transactionRecord.getUsername().equalsIgnoreCase(user.getUsername())) {
+                System.out.println(transactionRecord);
+            }
+        }
     }
 
 }
