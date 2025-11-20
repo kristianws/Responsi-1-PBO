@@ -1,22 +1,22 @@
 package model;
 
 public class Pelanggan {
-    private String id;
+    private String pass;
     private String name;
     private String phone;
 
-    public Pelanggan(String id, String name, String phone) {
-        assert id != null && !id.isBlank();
+    public Pelanggan(String pass, String name, String phone) {
+        assert pass != null && !pass.isBlank();
         assert name != null && !name.isBlank();
         assert phone != null && phone.length() >= 7;
 
-        this.id = id;
+        this.pass = pass;
         this.name = name;
         this.phone = phone;
     }
 
-    public String getId() {
-        return id;
+    public String getPass() {
+        return pass;
     }
 
     public String getName() {
@@ -37,12 +37,12 @@ public class Pelanggan {
 
     @Override
     public String toString() {
-        return id + " | " + name + " | " + phone;
+        return pass + " | " + name + " | " + phone;
     }
 
     // file: id|name|phone
     public String toFileString() {
-        return id + "|" + name + "|" + phone;
+        return pass + "|" + name + "|" + phone;
     }
 
     public static Pelanggan fromFileString(String line) throws Exception {

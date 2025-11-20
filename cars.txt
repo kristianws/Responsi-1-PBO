@@ -1,3 +1,0 @@
-C02|Honda HRV|SUV|450000.0|true
-C03|BMW M3|Sedan|300000.0|true
-C04|Suzuki Carry|Pick Up|200000.0|true

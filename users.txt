@@ -1,6 +1,0 @@
-kristian|sukasuka|USER
-pandu|123123|USER
-zidannnn|ambasing|USER
-admin|admin123|ADMIN
-dapaa|anjing|ADMIN
-asrip|asripganteng|USER
