@@ -79,7 +79,7 @@ public class Main {
 
         UserAccount user = authService.login(username, password);
         if (user == null) {
-            System.out.println("Login gagal. Cek Username/password!");
+            System.out.println("Login gagal. Username/password Tidak Ada!");
             return;
         }
 
