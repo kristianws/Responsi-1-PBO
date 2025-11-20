@@ -5,16 +5,15 @@ import java.util.Random;
 
 import model.*;
 
-
 public class RentalService {
     private ArrayList<Mobil> listMobil;
     private ArrayList<Pelanggan> listPelanggan;
     private ArrayList<TransactionRecord> listTransaksi;
     private StorageUtil storage;
 
-
-    public RentalService(StorageUtil storage, ArrayList<Mobil> listMobil, ArrayList<Pelanggan> listPelanggan, ArrayList<TransactionRecord> listTransactionRecords) {
-        this.listMobil =listMobil;
+    public RentalService(StorageUtil storage, ArrayList<Mobil> listMobil, ArrayList<Pelanggan> listPelanggan,
+            ArrayList<TransactionRecord> listTransactionRecords) {
+        this.listMobil = listMobil;
         this.listPelanggan = listPelanggan;
         this.listTransaksi = listTransactionRecords;
         this.storage = storage;
@@ -48,7 +47,8 @@ public class RentalService {
         return null;
     }
 
-    public double rentCar(String username, String carId, String customerId, int days, double paidMoney) throws Exception {
+    public double rentCar(String username, String carId, String customerId, int days, double paidMoney)
+            throws Exception {
         if (days <= 0) {
             throw new Exception("Lama sewa harus > 0 ");
         }
@@ -82,5 +82,12 @@ public class RentalService {
         return paidMoney - total;
     }
 
+    public void returnCar(String carId) throws Exception {
+        Mobil mobil = findMobil(carId);
+        if (mobil == null)
+            throw new Exception("Mobil tidak ditemukan");
+        mobil.returnMobil();
+        storage.saveMobil(listMobil);
+    }
 
 }
