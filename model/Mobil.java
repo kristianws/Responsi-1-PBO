@@ -76,7 +76,7 @@ public class Mobil {
             ketersediaan = "Sedang Disewa";
         }
         
-        return noPlat + " - " + brand + " (" + type + ") " + ketersediaan + "( " + pricePerDay + " )";
+        return noPlat + " - " + brand + " " + type + " ( " + ketersediaan + " ) ( " + pricePerDay + " )";
     }
 
     public String toFileString() {

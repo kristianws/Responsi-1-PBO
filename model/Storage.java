@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Storage {
     private static String FILE_MOBIL = "mobil.txt";
-    private static String FILE_USER = "user.txt";
+    private static String FILE_USER = "users.txt";
     private static ArrayList<Mobil> listMobil;
     private static ArrayList<User> listUser;
 
@@ -18,8 +18,8 @@ public class Storage {
         listUser = new ArrayList<>();
 
         try {
-            loadMobil();
-            loadUser();
+            listMobil = loadMobil();
+            listUser = loadUser();
         } catch (Exception e) {
             System.out.println("Error Membaca Data : " + e.getMessage());// TODO: handle exception
         }
@@ -94,7 +94,7 @@ public class Storage {
 
     public boolean login(String nama, String password) {
         for (User user : listUser) {
-            if (user.getName().equalsIgnoreCase(nama) && user.getPass().equals(password)) {
+            if (user.getName().equals(nama) && user.getPass().equals(password)) {
                 return true;
             }
         }
@@ -110,13 +110,11 @@ public class Storage {
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_USER))) {
             br.readLine(); // read firstline;
-
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.isBlank()) {
                     continue;
                 }
-
                 try {
                     list.add(User.fromFileToString(line));
                 } catch (Exception e) {
@@ -125,7 +123,7 @@ public class Storage {
 
             }
         } catch (Exception e) {
-            System.out.println("Error membaca file mobil : " + e.getMessage());
+            System.out.println("Error membaca file user : " + e.getMessage());
         }
 
         return list;
@@ -133,7 +131,7 @@ public class Storage {
 
     public void saveUser(ArrayList<User> listUser) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_USER))) {
-            bw.write("ID|Nama|Password|No Phone|Role");
+            bw.write("ID|Nama|Password|No Phone|Role\n");
 
             for (User user : listUser) {
                 bw.write(user.toFileString());

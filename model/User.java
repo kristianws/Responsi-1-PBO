@@ -8,7 +8,7 @@ public class User {
     public User(String name, String pass, String phone) {
         assert pass != null && !pass.isBlank();
         assert name != null && !name.isBlank();
-        assert phone != null && phone.length() >= 7;
+        assert phone != null && phone.length() >= 8;
 
         this.pass = pass;
         this.name = name;
@@ -43,17 +43,17 @@ public class User {
 
     // file: id|name|phone
     public String toFileString() {
-        return name + "|" + phone + "|" + pass ;
+        return name + "|" + pass + "|" + phone + "\n";
     }
 
     public static User fromFileToString(String line) throws Exception {
         String[] data =line.split("\\|");
 
-        if (data.length != 5) {
+        if (data.length != 3) {
             throw new Exception("Format File User Salah : " + line);
         }
 
-        User baru = new User(data[1], data[2], data[3]);
+        User baru = new User(data[0], data[1], data[2]);
         return baru;
     }
 
