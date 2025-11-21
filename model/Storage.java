@@ -10,16 +10,20 @@ import java.util.ArrayList;
 public class Storage {
     private static String FILE_MOBIL = "mobil.txt";
     private static String FILE_USER = "users.txt";
+    private static String FILE_TRANSAKSI = "transaksi.txt";
     private static ArrayList<Mobil> listMobil;
     private static ArrayList<User> listUser;
+    private static ArrayList<Transaksi> lilstTransksi;
 
     public Storage() {
         listMobil = new ArrayList<>();
         listUser = new ArrayList<>();
+        lilstTransksi = new ArrayList<>();
 
         try {
             listMobil = loadMobil();
             listUser = loadUser();
+            lilstTransksi = loadTransaksi();
         } catch (Exception e) {
             System.out.println("Error Membaca Data : " + e.getMessage());// TODO: handle exception
         }
@@ -143,4 +147,43 @@ public class Storage {
         }
     }
 
+    public ArrayList<Transaksi> loadTransaksi() throws Exception {
+        ArrayList<Transaksi> list = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_MOBIL))) {
+            br.readLine();
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.isBlank()) {
+                    continue;
+                }
+                try {
+                    list.add(Transaksi.fromFileString(line));
+                } catch (Exception e) {
+                    System.out.println("Skip Read Line : " + e.getMessage());
+                    // TODO: handle exception
+                }
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error Membaca file transaksi : " + e.getMessage());
+        }
+        return list;
+    }
+
+    public void saveTransaksi(ArrayList<Transaksi> listTransaksi) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_TRANSAKSI))) {
+            bw.write("ID|Nama|Password|No Phone|Role\n");
+
+            for (Transaksi transaksi : listTransaksi) {
+                bw.write(transaksi.toFileString());
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error menyimpan Transaksi : " + e.getMessage());
+            // TODO: handle exception
+        }
+    }
 }
