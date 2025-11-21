@@ -1,0 +1,174 @@
+package model;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Storage {
+    private static String FILE_MOBIL = "mobil.txt";
+    private static String FILE_USER = "user.txt";
+    private static ArrayList<Mobil> listMobil;
+    private static ArrayList<User> listUser; 
+
+    public Storage() {
+        listMobil = new ArrayList<>();
+        listUser = new ArrayList<>();
+
+        try {
+            loadMobil();
+            loadUser();
+        } catch (Exception e) {
+            System.out.println("Error Membaca Data : " + e.getMessage());// TODO: handle exception
+        }
+        
+    }
+
+    // INPUT OUTPUT UNTUK KELAS MOBIL
+    public void saveMobil(ArrayList<Mobil> listMobil) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_MOBIL))) {
+            bw.write("PlatNo|Brand|Type|Harga|Ketersediaan\n");
+            for (Mobil mobil : listMobil) {
+                bw.write(mobil.toFileString());
+            }
+            
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("Error Menyimpan list Mobil : " + e.getMessage());
+        }
+    }
+
+    public ArrayList<Mobil> loadMobil() throws Exception {
+        ArrayList<Mobil> list = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_MOBIL))) {
+            br.readLine();
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.isBlank()) {
+                    continue;
+                }
+                try {
+                    list.add(Mobil.fromFileString(line));
+                } catch (Exception e) {
+                    System.out.println("Skip Read Line : " + e.getMessage());
+                    // TODO: handle exception
+                }
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error Membca file mobil : " + e.getMessage());
+        }
+
+        return list;
+    }
+
+    public boolean addMobil(Mobil baru) {
+        String platNomor = baru.getNoPlat();
+
+        for (Mobil mobil : listMobil) {
+            if (mobil.getNoPlat().equalsIgnoreCase(platNomor)) {
+                return false;
+            }
+        }
+        listMobil.remove(baru);
+        saveMobil(listMobil);
+        return true;
+    }
+
+    public ArrayList<Mobil> getAllMobil() {
+        return listMobil;
+    }
+
+    public boolean deleteMobil(Mobil delMobil) {
+        String platNomor = delMobil.getNoPlat();
+
+        for (Mobil mobil : listMobil) {
+            if (mobil.getNoPlat().equals(platNomor)) {
+                listMobil.remove(mobil);
+                saveMobil(listMobil);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public ArrayList<User> loadUser() throws Exception{
+        ArrayList<User> list = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_USER))) {
+            br.readLine(); //read firstline;
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.isBlank()) {
+                    continue;
+                }
+
+                try {
+                    list.add(User.fromFileToString(line));
+                } catch (Exception e) {
+                    System.out.println("Skip read line : " + e.getMessage());
+                }
+            
+            }
+        } catch (Exception e) {
+            System.out.println("Error membaca file mobil : " + e.getMessage());
+        }
+
+        return list;
+    }
+
+    public void saveUser(ArrayList<User> listUser) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_USER))) {
+            bw.write("ID|Nama|Password|No Phone|Role"); 
+
+            for (User user : listUser) {
+                bw.write(user.toFileString());
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error menyimpan user : " + e.getMessage());
+            // TODO: handle exception
+        }
+    }
+
+    public boolean addUser(User baru) {
+        String nama = baru.getName();
+        String nohp = baru.getPhone();
+
+        for (User user : listUser) {
+            if (user.getName().equalsIgnoreCase(nama) || user.getPhone().equalsIgnoreCase(nohp)) {
+                return false;
+            }
+        }
+
+        listUser.add(baru);
+        saveUser(listUser);
+        return true;
+    }
+
+    public boolean deleteUser(User delUser) {
+        int id = delUser.getId();
+
+        for (User user : listUser) {
+            if (user.getId() == id) {
+                listUser.remove(user);
+                saveUser(listUser);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public ArrayList<User> getAllUser() {
+        return listUser;
+    }
+
+}

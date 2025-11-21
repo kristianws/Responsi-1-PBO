@@ -1,25 +1,26 @@
 package model;
 
 public class Mobil {
-    private String id;
+    private String noPlat;
     private String brand;
     private String type;
     private Boolean available;
     private double pricePerDay;
 
-    public Mobil(String id, String brand, String type, double pricePerDay) {
-        assert id != null && !id.isBlank();
+    public Mobil(String noPlat, String brand, String type, double pricePerDay) {
+        assert noPlat != null && !noPlat.isBlank();
         assert brand != null && !brand.isBlank();
         assert pricePerDay >= 0;
-        this.id = id;
+
+        this.noPlat = noPlat;
         this.brand = brand;
         this.type = type;
         this.pricePerDay = pricePerDay;
         this.available = true;
     }
 
-    public String getId() {
-        return id;
+    public String getNoPlat() {
+        return noPlat;
     }
 
     public String getBrand() {
@@ -38,8 +39,8 @@ public class Mobil {
         return pricePerDay;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setNoPlat(String noPlat) {
+        this.noPlat = noPlat;
     }
 
     public void setBrand(String brand) {
@@ -75,20 +76,23 @@ public class Mobil {
             ketersediaan = "Sedang Disewa";
         }
         
-        return id + " - " + brand + " (" + type + ") " + ketersediaan + "( " + pricePerDay + " )";
+        return noPlat + " - " + brand + " (" + type + ") " + ketersediaan + "( " + pricePerDay + " )";
     }
 
     public String toFileString() {
-        return id + "|" + brand + "|" + type + "|" + pricePerDay + "|" + available;
+        return noPlat + "|" + brand + "|" + type + "|" + pricePerDay + "|" + available +"\n";
     }
 
     public static Mobil fromFileString(String line) throws Exception {
-        String[] parts = line.split("\\|");
-        if (parts.length != 5)
-            throw new Exception("Format mobil salah: " + line);
-        Mobil c = new Mobil(parts[0], parts[1], parts[2], Double.parseDouble(parts[3]));
-        c.available = Boolean.parseBoolean(parts[4]);
-        return c;
+        String[] data =line.split("\\|");
+
+        if (data.length != 5) {
+            throw new Exception("Format File Mobil Salah : " + line);
+        }
+
+        Mobil baru = new Mobil(data[0], data[1], data[2], Double.parseDouble(data[3]));
+        baru.available = Boolean.parseBoolean(data[4]);
+        return baru;
     }
 
 }
