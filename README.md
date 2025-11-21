@@ -1,2 +1,4 @@
 # Responsi-1-PBO
-Aplikasi Manajemen Rental Mobil dari Perspektif Admin atau Staff Rental Mobil
+Aplikasi Rental Mobil Sederhana yang Menggunakan Konsep OOP Sederhana menggunakan java
+
+
