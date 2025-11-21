@@ -56,6 +56,81 @@ public class App {
 
     }
 
+    public void doLogin() {
+        ui.banner();
+        String nama, password;
+        User currentUser;
+        try {
+            System.out.print("Nama \t\t: ");
+            nama = ui.getName();
+            System.out.print("Password \t: ");
+            password = ui.getPassword();
+
+            if (database.login(nama, password)) {
+                currentUser = database.getUserByNama(nama);
+                System.out.println("Login berhasil");
+                startUser(currentUser);
+            } else {
+                System.out.println("Login gagal. cek username/password");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+    }
+
+    public void doRegis() {
+        User baru = ui.regis();
+
+        if (baru != null) {
+            listUser.add(baru);
+            database.saveUser(listUser);
+            System.out.println("Registrasi Berhasil. Silahkan Login");
+        } else {
+            System.out.println("Registrasi Gagal");
+        }
+    }
+
+    public void startUser(User currentUser) {
+        boolean run = true;
+
+        while (run) {
+            try {
+                ui.banner();
+                ui.menuAfterLogin();
+                String option = ui.getOption();
+
+                switch (option) {
+                    case "1":
+                        showAllMobil();
+                        break;
+
+                    case "2":
+                        sewaMobil(currentUser);
+                        break;
+
+                    case "3":
+                        mengembalikan(currentUser);
+                        break;
+
+                    case "4":
+                        showAllMyTransaction(currentUser);
+                        break;
+
+                    case "5":
+                        run = false;
+                        break;
+                    default:
+                        break;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Error : " + e.getMessage());
+            }
+        }
+
+    }
+
     public void showAllMobil() {
         ui.banner();
         for (Mobil mobil : listMobil) {
@@ -106,46 +181,6 @@ public class App {
         }
     }
 
-    public void startUser(User currentUser) {
-        boolean run = true;
-
-        while (run) {
-            try {
-                ui.banner();
-                ui.menuAfterLogin();
-                String option = ui.getOption();
-
-                switch (option) {
-                    case "1":
-                        showAllMobil();
-                        break;
-
-                    case "2":
-                        sewaMobil(currentUser);
-                        break;
-
-                    case "3":
-                        mengembalikan(currentUser);
-                        break;
-
-                    case "4":
-                        showAllMyTransaction(currentUser);
-                        break;
-
-                    case "5":
-                        run = false;
-                        break;
-                    default:
-                        break;
-                }
-
-            } catch (Exception e) {
-                System.out.println("Error : " + e.getMessage());
-            }
-        }
-
-    }
-
     public void showAllMyTransaction(User currUser) {
 
         try {
@@ -154,11 +189,13 @@ public class App {
                 if (transaksi.getNamaPelanggan().equals(currUser.getName())) {
                     String noplat = transaksi.getPlatNoMobil();
                     Mobil history = database.getMobilByNoPlat(noplat);
-                    System.out.println(transaksi.getFormattedTime() +" - "+noplat + " - " + history.getBrand() + " " + history.getType() + " - " + history.getPrice() + "(Hari " + transaksi.getHariSewa()+ ")");
+                    System.out.println(transaksi.getFormattedTime() + " - " + noplat + " - " + history.getBrand() + " "
+                            + history.getType() + " - " + history.getPrice() + "(Hari " + transaksi.getHariSewa()
+                            + ")");
                 }
             }
             System.out.println("-".repeat(40));
-            
+
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
         }
@@ -184,7 +221,7 @@ public class App {
 
         try {
             System.out.println("-".repeat(40));
-            ArrayList<Mobil> list =  this.showMobilYangSayaSewa(currentUser);
+            ArrayList<Mobil> list = this.showMobilYangSayaSewa(currentUser);
             if (list.size() == 0) {
                 System.out.println("Tidak ada Mobil Yang Kamu Sewa");
                 return;
@@ -193,21 +230,20 @@ public class App {
                 System.out.println(mobil);
             }
             System.out.println("-".repeat(40));
-            
+
             System.out.print("Plat Nomor Mobil : ");
             String platNo = ui.getNoPlat();
 
             for (Transaksi transaksi : listTransaksi) {
-                if (transaksi.getNamaPelanggan().equals(currentUser.getName()) && !transaksi.isDone() && transaksi.getPlatNoMobil().equals(platNo)) {
+                if (transaksi.getNamaPelanggan().equals(currentUser.getName()) && !transaksi.isDone()
+                        && transaksi.getPlatNoMobil().equals(platNo)) {
                     transaksi.done();
                     database.saveTransaksi(listTransaksi);
                 }
             }
-            
 
             Mobil target = database.getMobilByNoPlat(platNo);
             target.returnMobil();
-
 
             database.saveMobil(listMobil);
 
@@ -217,40 +253,5 @@ public class App {
             System.out.println("Error : " + e.getMessage());
         }
 
-    }
-
-    public void doLogin() {
-        ui.banner();
-        String nama, password;
-        User currentUser;
-        try {
-            System.out.print("Nama \t\t: ");
-            nama = ui.getName();
-            System.out.print("Password \t: ");
-            password = ui.getPassword();
-
-            if (database.login(nama, password)) {
-                currentUser = database.getUserByNama(nama);
-                System.out.println("Login berhasil");
-                startUser(currentUser);
-            } else {
-                System.out.println("Login gagal. cek username/password");
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error : " + e.getMessage());
-        }
-    }
-
-    public void doRegis() {
-        User baru = ui.regis();
-
-        if (baru != null) {
-            listUser.add(baru);
-            database.saveUser(listUser);
-            System.out.println("Registrasi Berhasil. Silahkan Login");
-        } else {
-            System.out.println("Registrasi Gagal");
-        }
     }
 }

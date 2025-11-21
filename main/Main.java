@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Scanner;
-
 import controller.App;
 import model.*;
 import view.ViewApp;
@@ -16,6 +15,6 @@ public class Main {
         rentalMobil.run();
         
         input.close();
+        
     }
-
 }

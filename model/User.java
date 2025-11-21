@@ -15,33 +15,17 @@ public class User {
         this.phone = phone;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public String getPass() {return pass;}
+    public String getName() {return name;}
+    public String getPhone() {return phone;}
+    public void setName(String name) {this.name = name;}
+    public void setPhone(String phone) {this.phone = phone;}
 
     @Override
     public String toString() {
         return name + " (" + phone + ")";
     }
 
-    // file: id|name|phone
     public String toFileString() {
         return name + "|" + pass + "|" + phone + "\n";
     }

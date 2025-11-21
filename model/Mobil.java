@@ -18,54 +18,21 @@ public class Mobil {
         this.pricePerDay = pricePerDay;
         this.available = true;
     }
+    // Getter
+    public String getNoPlat() {return noPlat;}
+    public String getBrand() {return brand;}
+    public String getType() {return type;}
+    public Boolean getAvailable() {return available;}
+    public double getPrice() {return pricePerDay;}
 
-    public String getNoPlat() {
-        return noPlat;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public double getPrice() {
-        return pricePerDay;
-    }
-
-    public void setNoPlat(String noPlat) {
-        this.noPlat = noPlat;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setType(Boolean available) {
-        this.available = available;
-    }
-
-    public void setPrice(double pricePerDay) {
-        this.pricePerDay = pricePerDay;
-    }
-
-    public void rentOut() {
-        this.available = false;
-    }
-
-    public void returnMobil() {
-        this.available = true;
-    }
+    // Setter
+    public void setNoPlat(String noPlat) {this.noPlat = noPlat;}
+    public void setBrand(String brand) {this.brand = brand;}
+    public void setType(String type) {this.type = type;}
+    public void setType(Boolean available) {this.available = available;}
+    public void setPrice(double pricePerDay) {this.pricePerDay = pricePerDay;}
+    public void rentOut() {this.available = false;}
+    public void returnMobil() {this.available = true;}
 
     @Override
     public String toString() {
