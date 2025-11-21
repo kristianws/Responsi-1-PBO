@@ -1,9 +1,10 @@
-package main;
+package Responsi1_PPBO_L0124060_SC2;
 
 import java.util.Scanner;
-import controller.App;
-import model.*;
-import view.ViewApp;
+
+import Responsi1_PPBO_L0124060_SC1.App;
+import Responsi1_PPBO_L0124060_SC3.*;
+import Responsi1_PPBO_L0124060_SC4.ViewApp;
 
 public class Main {
     public static void main(String[] args) {

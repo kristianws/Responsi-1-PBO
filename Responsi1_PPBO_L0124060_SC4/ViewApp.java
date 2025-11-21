@@ -1,9 +1,9 @@
-package view;
+package Responsi1_PPBO_L0124060_SC4;
 
 import java.util.Scanner;
 
-import model.Transaksi;
-import model.User;
+import Responsi1_PPBO_L0124060_SC3.Transaksi;
+import Responsi1_PPBO_L0124060_SC3.User;
 
 public class ViewApp {
     private Scanner input;

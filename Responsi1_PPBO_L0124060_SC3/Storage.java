@@ -1,4 +1,4 @@
-package model;
+package Responsi1_PPBO_L0124060_SC3;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
