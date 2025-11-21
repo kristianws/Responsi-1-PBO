@@ -2,47 +2,108 @@ package view;
 
 import java.util.Scanner;
 
+import model.User;
+
 public class ViewApp {
-    Scanner input;
+    private Scanner input;
 
     public ViewApp(Scanner input) {
         this.input = input;
     }
 
-    public void startMenu() {
+    public void banner() {
         System.out.println("-".repeat(40));
         System.out.print(" ".repeat(9));
         System.out.println("Rental Mobil Suka Maju");
         System.out.println("-".repeat(40));
+    }
+
+    public void startMenu() {
+        banner();
         System.out.println("\t[1] Login");
         System.out.println("\t[2] Register");
         System.out.println("\t[3] Exit");
         System.out.println("-".repeat(40));
-        System.out.print("-> ");
     }
 
-    public String getOption() {
+    public void menuAfterLogin() {
+        System.out.println("\t[1] Lihat Daftar Mobil");
+        System.out.println("\t[2] Sewa Mobil");
+        System.out.println("\t[3] Kembalikan Mobil");
+        System.out.println("\t[4] Daftar Transaksi");
+        System.out.println("\t[5] Kembali");
+        System.out.println("-".repeat(40));
+    }
+
+    public String getOption() throws Exception {
         String option = input.nextLine().trim();
         String regex = "\\d+";
         if (option.matches(regex)) {
             return option;
         }
-        return "";
+        throw new Exception("Input Harus Angka");
     }
 
-    public String getName() {
+    public String getNoPlat() throws Exception {
+        String plat = input.nextLine().trim();
+        String regex = "$$^[A-Z]{1,2}\\s[1-9][0-9]{0,3}\\s[A-Z]{1,3}$$$";
+        if (plat.matches(regex)) {
+            return plat;
+        }
+        throw new Exception("Format Input Plat No Salah");
+
+    }
+
+    public String getName() throws Exception {
         String name = input.nextLine().trim();
         String regex = "^[a-zA-Z][a-zA-Z ]{4,}$";
         if (name.matches(regex)) {
             return name;
         }
-        return "";
+        throw new Exception("Nama terdiri dari huruf dengan min 4 huruf!");
+    }
+
+    public String getPassword() {
+        String password = input.nextLine().trim();
+        return password;
+    }
+
+    public String getNoHp() throws Exception {
+        String nohp = input.nextLine().trim();
+        String regex = "^(\\\\+62|62|0)8[0-9]{8,11}$";
+        if (nohp.matches(regex)) {
+            return nohp;
+        }
+        throw new Exception("Format No Hp salah, terdiri dari 8-11 angka");
+    }
+
+    public User regis() {
+        banner();
+        String nama, password, nohp;
+
+        try {
+
+            System.out.print("Nama \t: ");
+            nama = this.getName();
+            System.out.println("Password \t: ");
+            password = this.getPassword();
+            System.out.println("No HP : ");
+            nohp = this.getNoHp();
+
+            return new User(nama, password, nohp);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error Input Data User Baru : " + e.getMessage());
+            return null;
+        }
+
     }
 
     // public static void main(String[] args) {
-    //     Scanner input = new Scanner(System.in);
-    //     viewApp frontend = new viewApp(input);
-    //     frontend.startMenu();
+    // Scanner input = new Scanner(System.in);
+    // viewApp frontend = new viewApp(input);
+    // frontend.startMenu();
     // }
 
 }
