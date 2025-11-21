@@ -1,10 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import model.*;
-import view.*;
+import model.Mobil;
+import model.Transaksi;
+import model.Storage;
+import model.User;
+import view.ViewApp;
 
 public class App {
     private Storage database;
