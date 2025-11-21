@@ -83,13 +83,22 @@ public class Storage {
 
     // INPUT OUTPUT KELAS USER
 
-    public User getMobilByNama(String Nama) throws Exception {
+    public User getUserByNama(String Nama) throws Exception {
         for (User user : listUser) {
             if (user.getName().equals(Nama)) {
                 return user;
             }
         }
         throw new Exception("User dengan Nama " + Nama + " Tidak Ada");
+    }
+
+    public boolean login(String nama, String password) {
+        for (User user : listUser) {
+            if (user.getName().equalsIgnoreCase(nama) && user.getPass().equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<User> gettAllUser() {
