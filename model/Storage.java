@@ -67,37 +67,16 @@ public class Storage {
         return list;
     }
 
-    public boolean addMobil(Mobil baru) {
-        String platNomor = baru.getNoPlat();
-
-        for (Mobil mobil : listMobil) {
-            if (mobil.getNoPlat().equalsIgnoreCase(platNomor)) {
-                return false;
-            }
-        }
-        listMobil.remove(baru);
-        saveMobil(listMobil);
-        return true;
-    }
-
     public ArrayList<Mobil> getAllMobil() {
         return listMobil;
     }
 
-    public boolean deleteMobil(Mobil delMobil) {
-        String platNomor = delMobil.getNoPlat();
 
-        for (Mobil mobil : listMobil) {
-            if (mobil.getNoPlat().equals(platNomor)) {
-                listMobil.remove(mobil);
-                saveMobil(listMobil);
-                return true;
-            }
-        }
-        return false;
+    // INPUT OUTPUT KELAS USER
+
+    public ArrayList<User> gettAllUser() {
+        return listUser;
     }
-
-
     public ArrayList<User> loadUser() throws Exception{
         ArrayList<User> list = new ArrayList<>();
 
@@ -137,38 +116,6 @@ public class Storage {
             // TODO: handle exception
         }
     }
-
-    public boolean addUser(User baru) {
-        String nama = baru.getName();
-        String nohp = baru.getPhone();
-
-        for (User user : listUser) {
-            if (user.getName().equalsIgnoreCase(nama) || user.getPhone().equalsIgnoreCase(nohp)) {
-                return false;
-            }
-        }
-
-        listUser.add(baru);
-        saveUser(listUser);
-        return true;
-    }
-
-    public boolean deleteUser(User delUser) {
-        int id = delUser.getId();
-
-        for (User user : listUser) {
-            if (user.getId() == id) {
-                listUser.remove(user);
-                saveUser(listUser);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public ArrayList<User> getAllUser() {
-        return listUser;
-    }
+    
 
 }
