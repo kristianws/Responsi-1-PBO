@@ -11,6 +11,7 @@ public class ViewApp {
         this.input = input;
     }
 
+    
     public void banner() {
         System.out.println("-".repeat(40));
         System.out.print(" ".repeat(9));
@@ -36,6 +37,7 @@ public class ViewApp {
     }
 
     public String getOption() throws Exception {
+        System.out.print("-> ");
         String option = input.nextLine().trim();
         String regex = "\\d+";
         if (option.matches(regex)) {
@@ -83,27 +85,20 @@ public class ViewApp {
 
         try {
 
-            System.out.print("Nama \t: ");
+            System.out.print("Nama \t\t: ");
             nama = this.getName();
-            System.out.println("Password \t: ");
+            System.out.print("Password \t: ");
             password = this.getPassword();
-            System.out.println("No HP : ");
+            System.out.print("No HP \t\t: ");
             nohp = this.getNoHp();
 
             return new User(nama, password, nohp);
 
         } catch (Exception e) {
             // TODO: handle exception
-            System.out.println("Error Input Data User Baru : " + e.getMessage());
+            System.out.println("Error : " +e.getMessage());
             return null;
         }
 
     }
-
-    // public static void main(String[] args) {
-    // Scanner input = new Scanner(System.in);
-    // viewApp frontend = new viewApp(input);
-    // frontend.startMenu();
-    // }
-
 }
