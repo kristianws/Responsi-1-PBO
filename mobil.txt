@@ -1,5 +1,5 @@
 PlatNo|Brand|Type|Harga|Ketersediaan
-B1273AA|Toyota|Avanza|350000|true
+B 1273 AA|Toyota|Avanza|350000|true
 B 2481 BB|Toyota|Innova|450000|true
 B 3962 CC|Honda|Brio|300000|true
 B 4529 DD|Honda|HRV|500000|true
