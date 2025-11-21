@@ -97,6 +97,8 @@ public class App {
 
             database.saveMobil(listMobil);
             database.saveTransaksi(listTransaksi);
+
+            System.out.println("Terima Kasih telah Menggunakan Layanan Kami");
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
         }
@@ -150,7 +152,7 @@ public class App {
                 if (transaksi.getNamaPelanggan().equals(currUser.getName())) {
                     String noplat = transaksi.getPlatNoMobil();
                     Mobil history = database.getMobilByNoPlat(noplat);
-                    System.out.println(noplat + " - " + history.getBrand() + " " + history.getType() + " - " + history.getPrice() + "(Hari " + transaksi.getHariSewa()+ ")");
+                    System.out.println(transaksi.getFormattedTime() +" - "+noplat + " - " + history.getBrand() + " " + history.getType() + " - " + history.getPrice() + "(Hari " + transaksi.getHariSewa()+ ")");
                 }
             }
             System.out.println("-".repeat(40));
@@ -249,17 +251,4 @@ public class App {
             System.out.println("Registrasi Gagal");
         }
     }
-
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        Storage database = new Storage();
-        ViewApp inputOutput = new ViewApp(input);
-
-        App aplikasi = new App(database, inputOutput);
-        aplikasi.run();
-
-        input.close();
-
-    }
-
 }
