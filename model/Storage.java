@@ -13,19 +13,19 @@ public class Storage {
     private static String FILE_TRANSAKSI = "transaksi.txt";
     private static ArrayList<Mobil> listMobil;
     private static ArrayList<User> listUser;
-    private static ArrayList<Transaksi> lilstTransksi;
+    private static ArrayList<Transaksi> listTransaksi;
 
     public Storage() {
         listMobil = new ArrayList<>();
         listUser = new ArrayList<>();
-        lilstTransksi = new ArrayList<>();
+        listTransaksi = new ArrayList<>();
 
         try {
             listMobil = loadMobil();
             listUser = loadUser();
-            lilstTransksi = loadTransaksi();
+            listTransaksi = loadTransaksi();
         } catch (Exception e) {
-            System.out.println("Error Membaca Data : " + e.getMessage());// TODO: handle exception
+            System.out.println("Error Membaca Data : " + e.getMessage());
         }
 
     }
@@ -49,7 +49,6 @@ public class Storage {
             }
 
         } catch (IOException e) {
-            // TODO: handle exception
             System.out.println("Error Menyimpan list Mobil : " + e.getMessage());
         }
     }
@@ -69,12 +68,10 @@ public class Storage {
                     list.add(Mobil.fromFileString(line));
                 } catch (Exception e) {
                     System.out.println("Skip Read Line : " + e.getMessage());
-                    // TODO: handle exception
                 }
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Error Membca file mobil : " + e.getMessage());
         }
 
@@ -135,7 +132,7 @@ public class Storage {
 
     public void saveUser(ArrayList<User> listUser) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_USER))) {
-            bw.write("ID|Nama|Password|No Phone|Role\n");
+            bw.write("ID|Nama|Password|No Phone\n");
 
             for (User user : listUser) {
                 bw.write(user.toFileString());
@@ -143,14 +140,15 @@ public class Storage {
 
         } catch (Exception e) {
             System.out.println("Error menyimpan user : " + e.getMessage());
-            // TODO: handle exception
         }
     }
 
+
+    // Untuk Transaksi
     public ArrayList<Transaksi> loadTransaksi() throws Exception {
         ArrayList<Transaksi> list = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_MOBIL))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_TRANSAKSI))) {
             br.readLine();
             String line;
 
@@ -159,23 +157,25 @@ public class Storage {
                     continue;
                 }
                 try {
-                    list.add(Transaksi.fromFileString(line));
+                    list.add(Transaksi.fromFileToString(line));
                 } catch (Exception e) {
                     System.out.println("Skip Read Line : " + e.getMessage());
-                    // TODO: handle exception
                 }
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Error Membaca file transaksi : " + e.getMessage());
         }
         return list;
     }
 
+    public ArrayList<Transaksi> getAllTransaksi() {
+        return listTransaksi;
+    }
+
     public void saveTransaksi(ArrayList<Transaksi> listTransaksi) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_TRANSAKSI))) {
-            bw.write("ID|Nama|Password|No Phone|Role\n");
+            bw.write("Plat No|Nama|No Hp|Waktu Sewa|Total Harga|TimeStamp\n");
 
             for (Transaksi transaksi : listTransaksi) {
                 bw.write(transaksi.toFileString());
@@ -183,7 +183,6 @@ public class Storage {
 
         } catch (Exception e) {
             System.out.println("Error menyimpan Transaksi : " + e.getMessage());
-            // TODO: handle exception
         }
     }
 }

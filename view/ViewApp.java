@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 
+import model.Transaksi;
 import model.User;
 
 public class ViewApp {
@@ -48,12 +49,11 @@ public class ViewApp {
 
     public String getNoPlat() throws Exception {
         String plat = input.nextLine().trim();
-        String regex = "$$^[A-Z]{1,2}\\s[1-9][0-9]{0,3}\\s[A-Z]{1,3}$$$";
+        String regex = "^[A-Z]{1,2}\\s[1-9][0-9]{0,3}\\s[A-Z]{1,3}$";
         if (plat.matches(regex)) {
             return plat;
         }
         throw new Exception("Format Input Plat No Salah");
-
     }
 
     public String getName() throws Exception {
@@ -77,6 +77,23 @@ public class ViewApp {
             return nohp;
         }
         throw new Exception("Format No Hp salah, terdiri dari 8-11 angka");
+    }
+
+    public double getUangYangDibayar(Transaksi transaksi) throws Exception {
+        double money = input.nextDouble();
+        input.nextLine();
+        if (money >= transaksi.getTotalHarga()) {
+            return money;
+        }
+        throw new Exception("Uang Yang Dibayar Kurang");
+    }
+
+    public int getHariSewa() throws Exception {
+        int hari = Integer.parseInt(input.nextLine().trim());
+        if (hari > 0) {
+            return hari;
+        }
+        throw new Exception("Hari Sewa Harus Lebih dari 0");
     }
 
     public User regis() {

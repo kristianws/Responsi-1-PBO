@@ -1,2 +1,3 @@
-ID|Nama|Password|No Phone|Role
+ID|Nama|Password|No Phone
 Kristian Pandu|Neowise20|085831482204
+Wijaya Subijakto|ambasing|085831482205

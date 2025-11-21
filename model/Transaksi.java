@@ -10,15 +10,34 @@ public class Transaksi {
     private int hariSewa;
     private double totalHarga;
     private LocalDateTime waktuTransaksi;
+    private boolean isDone;
 
     public Transaksi(){}
 
     public Transaksi(User penyewa, Mobil mobilDisewa, int hari) {
+        assert hari >= 0;
+
         this.platNoMobil = mobilDisewa.getNoPlat();
         this.namaPelanggan = penyewa.getName();
+        this.hariSewa = hari;
         this.nohp = penyewa.getPhone();
         this.totalHarga = hari * mobilDisewa.getPrice();
         this.waktuTransaksi = LocalDateTime.now();
+        this.isDone = false;
+    }
+
+    public void done() {
+        if (!this.isDone) {
+            this.isDone = true;
+        }
+    }
+
+    public void setDone(boolean state) {
+        this.isDone = state;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 
     public String getPlatNoMobil() {
@@ -53,7 +72,6 @@ public class Transaksi {
     }
 
     public void setHariSewa(int hariSewa) {
-        // Tips: Anda bisa menambahkan validasi di sini agar hari tidak negatif
         if (hariSewa > 0) {
             this.hariSewa = hariSewa;
         } else {
@@ -85,18 +103,26 @@ public class Transaksi {
 
     @Override
     public String toString() {
-        return getFormattedTime() + " - " + namaPelanggan + " (" + platNoMobil + ") - No : " + nohp + " - " + hariSewa + " - Rp" + totalHarga;
+        String status;
+        if (isDone) {
+            status = "DONE";
+        } else {
+            status = "NOT DONE";
+        }
+
+        return getFormattedTime() + " - " + namaPelanggan + " (" + platNoMobil + ") - No : " + nohp + " - " + hariSewa + " - Rp" + totalHarga + "(" + status + ")";
     }
 
 
     public String toFileString() {
-        return platNoMobil + "|" + namaPelanggan + "|" + nohp + "|" + hariSewa + "|" + totalHarga + "|" + getFormattedTime() +"\n";
+        return platNoMobil + "|" + namaPelanggan + "|" + nohp + "|" + hariSewa + "|" + totalHarga + "|" + getFormattedTime() + "|"+ isDone +"\n";
     }
 
-    public static Transaksi fromFileString(String line) throws Exception {
+    public static Transaksi fromFileToString(String line) throws Exception {
         String[] data =line.split("\\|");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-        if (data.length != 6) {
+        if (data.length != 7) {
             throw new Exception("Format File Transaksi Salah : " + line);
         }
 
@@ -106,9 +132,12 @@ public class Transaksi {
         baru.setNohp(data[2]);
         baru.setHariSewa(Integer.parseInt(data[3]));
         baru.setTotalHarga(Double.parseDouble(data[4]));
-        baru.setWaktuTransaksi(LocalDateTime.parse(data[5]));
+        baru.setWaktuTransaksi(LocalDateTime.parse(data[5], format));
+        baru.setDone(Boolean.parseBoolean(data[6]));
         
         return baru;
     }
+
+
 
 }

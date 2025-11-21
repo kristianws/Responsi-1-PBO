@@ -1,21 +1,20 @@
 PlatNo|Brand|Type|Harga|Ketersediaan
-B 1273 AA|Toyota|Avanza|350000|true
-B 2481 BB|Toyota|Innova|450000|true
-B 3962 CC|Honda|Brio|300000|true
-B 4529 DD|Honda|HRV|500000|true
-B 5834 EE|Suzuki|Ertiga|330000|true
-B 6742 FF|Mitsubishi|Xpander|400000|true
-B 7805 GG|Nissan|Livina|380000|true
-B 8917 HH|Daihatsu|Xenia|340000|true
-B 9053 II|Hyundai|Stargazer|420000|true
-B 0318 JJ|Wuling|Confero|310000|true
-B 1186 KK|Toyota|Yaris|360000|true
-B 2397 LL|Honda|Jazz|370000|true
-B 3471 MM|Mazda|CX-3|550000|true
-B 4682 NN|Mitsubishi|Pajero Sport|750000|true
-B 5794 OO|Toyota|Fortuner|780000|true
-B 6918 PP|Hyundai|Creta|450000|true
-B 7025 QQ|Kia|Sonet|330000|true
-B 8136 RR|Suzuki|Baleno|320000|true
-B 9247 SS|Daihatsu|Terios|390000|true
-B 1059 TT|Toyota|Agya|280000|true
+B 1273 AA|Toyota|Avanza|350000.0|true
+B 2481 BB|Toyota|Innova|450000.0|true
+B 3962 CC|Honda|Brio|300000.0|true
+B 4529 DD|Honda|HRV|500000.0|true
+B 5834 EE|Suzuki|Ertiga|330000.0|true
+B 6742 FF|Mitsubishi|Xpander|400000.0|true
+B 7805 GG|Nissan|Livina|380000.0|true
+B 8917 HH|Daihatsu|Xenia|340000.0|true
+B 9053 II|Hyundai|Stargazer|420000.0|false
+B 1186 KK|Toyota|Yaris|360000.0|true
+B 2397 LL|Honda|Jazz|370000.0|true
+B 3471 MM|Mazda|CX-3|550000.0|true
+B 4682 NN|Mitsubishi|Pajero Sport|750000.0|true
+B 5794 OO|Toyota|Fortuner|780000.0|true
+B 6918 PP|Hyundai|Creta|450000.0|true
+B 7025 QQ|Kia|Sonet|330000.0|true
+B 8136 RR|Suzuki|Baleno|320000.0|true
+B 9247 SS|Daihatsu|Terios|390000.0|true
+B 1059 TT|Toyota|Agya|280000.0|true
