@@ -11,7 +11,7 @@ public class Storage {
     private static String FILE_MOBIL = "mobil.txt";
     private static String FILE_USER = "user.txt";
     private static ArrayList<Mobil> listMobil;
-    private static ArrayList<User> listUser; 
+    private static ArrayList<User> listUser;
 
     public Storage() {
         listMobil = new ArrayList<>();
@@ -23,17 +23,27 @@ public class Storage {
         } catch (Exception e) {
             System.out.println("Error Membaca Data : " + e.getMessage());// TODO: handle exception
         }
-        
+
     }
 
     // INPUT OUTPUT UNTUK KELAS MOBIL
+
+    public Mobil getMobilByNoPlat(String NoPlat) throws Exception {
+        for (Mobil mobil : listMobil) {
+            if (mobil.getNoPlat().equals(NoPlat)) {
+                return mobil;
+            }
+        }
+        throw new Exception("Mobil Dengan Plat " + NoPlat + " Tidak Ada");
+    }
+
     public void saveMobil(ArrayList<Mobil> listMobil) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_MOBIL))) {
             bw.write("PlatNo|Brand|Type|Harga|Ketersediaan\n");
             for (Mobil mobil : listMobil) {
                 bw.write(mobil.toFileString());
             }
-            
+
         } catch (IOException e) {
             // TODO: handle exception
             System.out.println("Error Menyimpan list Mobil : " + e.getMessage());
@@ -71,17 +81,26 @@ public class Storage {
         return listMobil;
     }
 
-
     // INPUT OUTPUT KELAS USER
+
+    public User getMobilByNama(String Nama) throws Exception {
+        for (User user : listUser) {
+            if (user.getName().equals(Nama)) {
+                return user;
+            }
+        }
+        throw new Exception("User dengan Nama " + Nama + " Tidak Ada");
+    }
 
     public ArrayList<User> gettAllUser() {
         return listUser;
     }
-    public ArrayList<User> loadUser() throws Exception{
+
+    public ArrayList<User> loadUser() throws Exception {
         ArrayList<User> list = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_USER))) {
-            br.readLine(); //read firstline;
+            br.readLine(); // read firstline;
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -94,7 +113,7 @@ public class Storage {
                 } catch (Exception e) {
                     System.out.println("Skip read line : " + e.getMessage());
                 }
-            
+
             }
         } catch (Exception e) {
             System.out.println("Error membaca file mobil : " + e.getMessage());
@@ -105,7 +124,7 @@ public class Storage {
 
     public void saveUser(ArrayList<User> listUser) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_USER))) {
-            bw.write("ID|Nama|Password|No Phone|Role"); 
+            bw.write("ID|Nama|Password|No Phone|Role");
 
             for (User user : listUser) {
                 bw.write(user.toFileString());
@@ -116,6 +135,5 @@ public class Storage {
             // TODO: handle exception
         }
     }
-    
 
 }
